@@ -1,14 +1,16 @@
 %  2nd Assignment
+
 %  Exercise 1: Steady State
 %  Exercise 2: Dynamic Transition
 %  Exercise 3: Permanent Policy Shocks
 %  Exercise 4: Transitory Policy Shocks
-%% =========================================================
+
 
 clear; clc;
 
-%% ══════════════════════════════════════════════════════
-%  EXERCISE 1 — Steady State
+
+
+%  Exercise 1: Steady State
 
 C_bar = 0.6;
 I_bar = 0.2;
@@ -27,8 +29,12 @@ fprintf('  C* = %.6f\n', ss.C);
 fprintf('  I* = %.6f\n', ss.I);
 fprintf('  Multiplier = %.4f\n\n', ss.multiplier);
 
-%% ══════════════════════════════════════════════════════
-%  EXERCISE 2 — Dynamic Transition
+
+
+
+
+
+% Exercise 2: Dynamic Transition
 
 T_sim       = 40;
 Y_init_frac = 0.9;
@@ -43,6 +49,7 @@ base_params.T     = T;
 base_params.i     = i;
 
 % Task 1 – Baseline (c = 0.5)
+
 sim_base = simulate_transition(base_params, T_sim, Y_init_frac);
 plot_single_transition(sim_base, 'Baseline  (c = 0.5)');
 
@@ -97,8 +104,14 @@ sgtitle(fig_ex2, ...
     sprintf('Ex2: Dynamic Transition — Y_{-1}=%.0f%% of Y*, c \\in {0.4, 0.5, 0.7}', ...
             Y_init_frac*100), 'FontSize',12,'FontWeight','bold');
 
-%% ══════════════════════════════════════════════════════
-%  EXERCISE 3 — Permanent Policy Shocks
+
+
+
+
+
+
+
+% Exercise 3: Permanent Policy Shocks
 
 gamma = 0.7;
 
@@ -132,7 +145,9 @@ for s = 1:3
     fprintf('%s\n',repmat('-',1,56));
 end
 
+
 % Bar chart: old vs new SS
+
 fig3_1 = figure('Name','Ex3 — Old vs New Steady States','NumberTitle','off',...
                 'Position',[60 60 1200 430]);
 bar_flds  = {'Y','C','I','L'};
@@ -159,6 +174,7 @@ for v = 1:4
     grid(ax,'on'); box(ax,'on');
 end
 sgtitle(fig3_1,'Ex3: Old vs New Steady States','FontSize',13,'FontWeight','bold');
+
 
 % One figure per shock
 dyn_flds  = {'Y','C','I','L'};
@@ -194,6 +210,8 @@ for s = 1:3
     sgtitle(fig,shock_labels{s},'FontSize',12,'FontWeight','bold');
 end
 
+
+
 % Overlay all shocks
 fig3_ov = figure('Name','Ex3 — All Shocks Overlay','NumberTitle','off',...
                  'Position',[100 100 1200 400]);
@@ -218,8 +236,16 @@ for v = 1:4
 end
 sgtitle(fig3_ov,'Ex3: All Three Permanent Policy Shocks — Overlay',...
         'FontSize',12,'FontWeight','bold');
-%% ══════════════════════════════════════════════════════════════════════════
-%  EXERCISE 4 — Transitory Policy Shocks
+
+
+
+
+
+
+
+% Exercise 4 — Transitory Policy Shocks
+
+
 
 gamma  = 0.7;
 T_sim4 = 40;
@@ -229,7 +255,10 @@ T_sim4 = 40;
 rho_G = 0.5;
 s41   = simulate_transitory(base_params, 'G', 0.10, rho_G, T_sim4, gamma, false);
 
+
+
 % 4.2: G shock, BALANCED BUDGET  (T_t = G_t at all t)
+
 rho_G = 0.5;
 s42 = simulate_transitory(base_params, 'G', 0.10, rho_G, T_sim4, gamma, true);
 
@@ -244,7 +273,10 @@ endo_flds  = {'Y','C','I','L'};
 endo_names = {'Output Y_t','Consumption C_t','Investment I_t','Employment L_t'};
 ss_refs    = {s41.Y_ss, s41.C_ss, s41.I_ss, s41.L_ss};
 
+
+
 % (1,1) — Government Spending G_t  [same for both scenarios]
+
 % Include t=0 (G_ss) so the jump at t=1 is visible
 subplot(2,3,1);
 plot(s41.t, s41.G_path, 'b-o', 'LineWidth', 1.8, 'MarkerSize', 3, ...
@@ -256,7 +288,10 @@ title('Policy: Government Spending G_t','FontSize',10,'FontWeight','bold');
 legend({'G_t (both scenarios)','Steady state G^*'}, 'Location','northeast','Box','off');
 grid on; box on;
 
+
+
 % (1,2) — Taxes T_t  [differ between scenarios]
+
 subplot(2,3,2);
 plot(s41.t, s41.T_path, '-',  'Color', clr41, 'LineWidth', 1.8,...
      'DisplayName','Debt-financed  (T = T^*)'); hold on;
@@ -268,7 +303,10 @@ title('Policy: Taxes T_t','FontSize',10,'FontWeight','bold');
 legend('Location','northeast','FontSize',8,'Box','off');
 grid on; box on;
 
+
+
 % (1,3) — Output Y_t
+
 subplot(2,3,3);
 plot(s41.t, s41.Y, '-',  'Color', clr41, 'LineWidth', 1.8,...
      'DisplayName','Debt-financed'); hold on;
@@ -280,7 +318,10 @@ title('Output Y_t','FontSize',10,'FontWeight','bold');
 legend('Location','southeast','FontSize',8,'Box','off');
 grid on; box on;
 
+
+
 % (2,1) — Consumption C_t
+
 subplot(2,3,4);
 plot(s41.t, s41.C, '-',  'Color', clr41, 'LineWidth', 1.8); hold on;
 plot(s42.t, s42.C, '--', 'Color', clr42, 'LineWidth', 1.8);
@@ -289,7 +330,10 @@ xlabel('t'); ylabel('C_t');
 title('Consumption C_t','FontSize',10,'FontWeight','bold');
 grid on; box on;
 
+
+
 % (2,2) — Investment I_t
+
 subplot(2,3,5);
 plot(s41.t, s41.I, '-',  'Color', clr41, 'LineWidth', 1.8); hold on;
 plot(s42.t, s42.I, '--', 'Color', clr42, 'LineWidth', 1.8);
@@ -298,7 +342,10 @@ xlabel('t'); ylabel('I_t');
 title('Investment I_t','FontSize',10,'FontWeight','bold');
 grid on; box on;
 
+
+
 % (2,3) — Employment L_t
+
 subplot(2,3,6);
 plot(s41.t, s41.L, '-',  'Color', clr41, 'LineWidth', 1.8); hold on;
 plot(s42.t, s42.L, '--', 'Color', clr42, 'LineWidth', 1.8);
@@ -311,7 +358,9 @@ sgtitle(fig42, ...
     'Exercise 4.1–4.2: Transitory G Shock — Debt-Financed vs Balanced Budget  (\rho_G = 0.5)',...
     'FontSize',12,'FontWeight','bold');
 
+
 % Explanation in command window
+
 fprintf('=== EXERCISE 4.2: Debt vs Balanced Budget ===\n');
 fprintf('  Peak Y deviation — Debt:    %.4f\n', max(s41.Y) - s41.Y_ss);
 fprintf('  Peak Y deviation — Bal.Bud: %.4f\n', max(s42.Y) - s42.Y_ss);
@@ -319,7 +368,10 @@ fprintf('  Interpretation: Under debt financing, the full multiplier operates.\n
 fprintf('  Under balanced budget, the tax increase partially offsets G, dampening\n');
 fprintf('  the expansion. The lag structure means T effect appears one period later.\n\n');
 
+
+
 % Sensitivity 4.1: vary rho_G 
+
 rho_vals  = [0.1, 0.3, 0.5, 0.7, 0.9];
 clr_rho   = cool(length(rho_vals));
 
@@ -343,7 +395,10 @@ end
 sgtitle(fig4s1,'Ex4.1: Sensitivity to \rho_G — Debt-Financed G Shock',...
         'FontSize',12,'FontWeight','bold');
 
+
+
 %% 4.3: T shock  (rho_T = 0.5) 
+
 %   T_1 = 1.1*T,  T_t = T_ss + rho_T*(T_{t-1}-T_ss) for t>=2
 rho_T = 0.5;
 s43   = simulate_transitory(base_params, 'T', 0.10, rho_T, T_sim4, gamma, false);
@@ -372,14 +427,20 @@ end
 sgtitle(fig43,'Exercise 4.3: Transitory 10% Tax Increase (\rho_T=0.5)',...
         'FontSize',12,'FontWeight','bold');
 
-% Brief economic interpretation (printed)
+
+
+% Brief economic interpretation 
+
 fprintf('=== EXERCISE 4.3: Transitory T shock ===\n');
 fprintf('  T increases at t=1 (10%%). Because T_{t-1} enters C_t with a lag,\n');
 fprintf('  the first effect on Y appears at t=2 (one-period delay).\n');
 fprintf('  Higher taxes reduce disposable income -> lower C -> lower Y and L.\n');
 fprintf('  The shock decays at rate rho_T=0.5, so economy returns to SS.\n\n');
 
+
+
 % Sensitivity 4.3: vary rho_T 
+
 fig4s3 = figure('Name','Ex4.3 Sensitivity rho_T','NumberTitle','off',...
                 'Position',[70 70 1100 420]);
 for v = 1:4
@@ -529,7 +590,9 @@ function sim = simulate_transition(params, T_sim, Y_init_frac)
     sim.params    = params;
 end
 
-% ─────────────────────────────────────────────────────────────────────────
+
+
+
 function result = compute_policy_shock(params_old, params_new, T_sim, gamma)
 % Permanent policy shock: old SS -> transition -> new SS
 
@@ -546,7 +609,7 @@ function result = compute_policy_shock(params_old, params_new, T_sim, gamma)
     Y = zeros(N,1);
     Y(1) = ss_old.Y;   % initial condition = old SS
 
-    % ── FIX: correct lag structure for T and i shocks ───────────────────
+    % Fix: correct lag structure for T and i shocks 
     % G enters current period → new kappa applies immediately (k>=2, t>=0)
     % T_{t-1} and i_{t-1} enter with ONE lag:
     %   shock at t=1 means first effect on Y at t=2 (k=4 in our indexing)
@@ -565,7 +628,7 @@ function result = compute_policy_shock(params_old, params_new, T_sim, gamma)
         end
     end
 
-    % ── FIX: C and I use lagged Y (Y_{t-1}) ──────────────────────────
+    % Fix: C and I use lagged Y (Y_{t-1})
     Y_lag = [Y(1); Y(1:end-1)];
     C = Cbn + cn*(Y_lag - Tn);
     I = Ibn + an*Y_lag - bn*in_;
@@ -673,6 +736,8 @@ function sim = simulate_transitory(base_params, shock_var, shock_size, ...
     sim.balanced_budget = balanced_budget;
 end
 
+
+
 function plot_single_transition(sim, fig_title)
     vars_p  = {'Y','C','I'};
     ss_p    = {'Y_ss','C_ss','I_ss'};
@@ -708,8 +773,16 @@ function plot_single_transition(sim, fig_title)
             'FontSize',12,'FontWeight','bold');
 end
 
+
+
+
+
+
+
+
+
 %  Utility helpers
-% ─────────────────────────────────────────────────────────────────────────
+
 function val = getf(s, field, default)
     if isfield(s, field), val = s.(field); else, val = default; end
 end
