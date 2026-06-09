@@ -6,7 +6,8 @@
 %  Exercise 4: Transitory Policy Shocks
 
 
-clear; clc;
+clear; 
+clc;
 
 
 
