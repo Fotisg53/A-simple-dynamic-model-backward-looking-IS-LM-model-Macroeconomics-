@@ -82,6 +82,13 @@ ss_ex2    = {'Y_ss','C_ss','I_ss'};
 
 fig_ex2 = figure('Name','Ex2 Task4 — MPC Comparison','NumberTitle','off',...
                  'Position',[80 80 1200 420]);
+
+
+
+
+% Task 2: Plot with the dynamic path of the endogenous variables of the model
+
+
 for v = 1:3
     ax = subplot(1,3,v);
     hold(ax,'on');
@@ -178,6 +185,7 @@ sgtitle(fig3_1,'Ex3: Old vs New Steady States','FontSize',13,'FontWeight','bold'
 
 
 % One figure per shock
+
 dyn_flds  = {'Y','C','I','L'};
 dyn_names = {'Output Y_t','Consumption C_t','Investment I_t','Employment L_t'};
 for s = 1:3
@@ -214,6 +222,7 @@ end
 
 
 % Overlay all shocks
+
 fig3_ov = figure('Name','Ex3 — All Shocks Overlay','NumberTitle','off',...
                  'Position',[100 100 1200 400]);
 for v = 1:4
@@ -250,7 +259,9 @@ sgtitle(fig3_ov,'Ex3: All Three Permanent Policy Shocks — Overlay',...
 
 gamma  = 0.7;
 T_sim4 = 40;
+
 %% ── 4.1: G shock, DEBT-FINANCED  (T unchanged, rho_G = 0.5) 
+
 %   G_1 = 1.1*G,  G_t = G_ss + rho_G*(G_{t-1}-G_ss) for t>=2
 
 rho_G = 0.5;
