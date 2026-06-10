@@ -1,4 +1,4 @@
-%  2nd Assignment
+%  Numerical Assignment 2
 
 %  Exercise 1: Steady State
 %  Exercise 2: Dynamic Transition
